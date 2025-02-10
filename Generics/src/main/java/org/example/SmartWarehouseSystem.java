@@ -3,10 +3,11 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class WareHouseItem{
+// Abstract class for warehouse items
+abstract class WarehouseItem {
     private String name;
 
-    public WareHouseItem(String name) {
+    public WarehouseItem(String name) {
         this.name = name;
     }
 
@@ -14,94 +15,92 @@ abstract class WareHouseItem{
         return name;
     }
 
-    public abstract void displayDetails();
+    public abstract void displayDetails();  // Abstract method to display item details
 }
 
-class Electronics extends WareHouseItem{
-
-    private String brand;
-
-    public Electronics(String name,String brand) {
+// Electronics class extending WarehouseItem
+class Electronics extends WarehouseItem {
+    public Electronics(String name) {
         super(name);
-        this.brand=brand;
     }
 
     @Override
     public void displayDetails() {
-       System.out.println("Electronics : "+getName()+", Brand : "+brand);
+        System.out.println("Electronics: " + getName());
     }
 }
 
-class Groceries extends WareHouseItem{
-    private String expiryDate;
-
-    public Groceries(String name,String expiryDate) {
+// Groceries class extending WarehouseItem
+class Groceries extends WarehouseItem {
+    public Groceries(String name) {
         super(name);
-        this.expiryDate =expiryDate;
     }
 
     @Override
     public void displayDetails() {
-        System.out.println("Groceries : "+ getName() +", Expiry Date : "+expiryDate);
+        System.out.println("Groceries: " + getName());
     }
 }
 
-class Furniture extends WareHouseItem {
-    private String material;
-
-    public Furniture(String name, String material) {
+// Furniture class extending WarehouseItem
+class Furniture extends WarehouseItem {
+    public Furniture(String name) {
         super(name);
-        this.material = material;
     }
 
     @Override
     public void displayDetails() {
-        System.out.println("Furniture: " + getName() + ", Material: " + material);
+        System.out.println("Furniture: " + getName());
     }
 }
 
-class Storage <T extends WareHouseItem>{
-    private List<T> items = new ArrayList<>();
+// Storage class to store items, utilizing Generics and bounded types
+class Storage<T extends WarehouseItem> {
+    private List<T> items;
 
-    public void addItem(T item){
+    public Storage() {
+        items = new ArrayList<>();
+    }
+
+    // Method to add item to storage
+    public void addItem(T item) {
         items.add(item);
     }
 
-    public List<T> getItems(){
-       return items;
-    }
-
-    public static void displayAllItems(List<? extends WareHouseItem> items) {
-        for (WareHouseItem item : items) {
+    // Method to display all items using wildcards
+    public void displayAllItems() {
+        for (T item : items) {
             item.displayDetails();
         }
     }
 }
+
+// Main class to test the functionality
 public class SmartWarehouseSystem {
     public static void main(String[] args) {
-        // Creating storage instances for different item types
+        // Create a storage for Electronics
         Storage<Electronics> electronicsStorage = new Storage<>();
+        electronicsStorage.addItem(new Electronics("Laptop"));
+        electronicsStorage.addItem(new Electronics("Smartphone"));
+
+        // Create a storage for Groceries
         Storage<Groceries> groceriesStorage = new Storage<>();
+        groceriesStorage.addItem(new Groceries("Apple"));
+        groceriesStorage.addItem(new Groceries("Bread"));
+
+        // Create a storage for Furniture
         Storage<Furniture> furnitureStorage = new Storage<>();
+        furnitureStorage.addItem(new Furniture("Sofa"));
+        furnitureStorage.addItem(new Furniture("Dining Table"));
 
-        // Adding items to respective storage
-        electronicsStorage.addItem(new Electronics("Laptop", "Dell"));
-        electronicsStorage.addItem(new Electronics("Smartphone", "Samsung"));
+        // Display all items in each storage
+        System.out.println("Electronics Storage:");
+        electronicsStorage.displayAllItems();
 
-        groceriesStorage.addItem(new Groceries("Milk", "2025-01-01"));
-        groceriesStorage.addItem(new Groceries("Apple", "2024-12-15"));
+        System.out.println("\nGroceries Storage:");
+        groceriesStorage.displayAllItems();
 
-        furnitureStorage.addItem(new Furniture("Chair", "Wood"));
-        furnitureStorage.addItem(new Furniture("Table", "Metal"));
-
-        // Displaying all stored items
-        System.out.println("Electronics:");
-        Storage.displayAllItems(electronicsStorage.getItems());
-
-        System.out.println("\nGroceries:");
-        Storage.displayAllItems(groceriesStorage.getItems());
-
-        System.out.println("\nFurniture:");
-        Storage.displayAllItems(furnitureStorage.getItems());
+        System.out.println("\nFurniture Storage:");
+        furnitureStorage.displayAllItems();
     }
 }
