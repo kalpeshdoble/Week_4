@@ -1,4 +1,4 @@
-package org.example.JunitQuestions;
+package org.example.Junit;
 
 public class NumberUtils {
     public static boolean isEven(int number) {

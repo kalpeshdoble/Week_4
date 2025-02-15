@@ -1,6 +1,6 @@
-package org.example.JunitQuestionsTest;
+package org.example;
 
-import org.example.JunitQuestions.NumberUtils;
+import org.example.Junit.NumberUtils;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
