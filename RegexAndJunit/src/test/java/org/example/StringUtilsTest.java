@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.JunitQuestions.StringUtils;
+import org.example.Junit.StringUtils;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
