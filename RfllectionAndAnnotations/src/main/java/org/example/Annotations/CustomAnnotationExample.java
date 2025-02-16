@@ -24,7 +24,7 @@ class TaskManager {
 public class CustomAnnotationExample {
     public static void main(String[] args) {
         try {
-            // Get the TaskManager class
+           
             Class<TaskManager> taskClass = TaskManager.class;
 
             // Get the method where the annotation is applied
